@@ -2,6 +2,8 @@
 
 ## 🚀 Como Começar
 
+> Status atual: login, cadastro, usuários, conteúdos, descartes, pedidos de coleta, coletas e workspace empresarial estão integrados à API Django. Impacto ambiental, notificações, pontos de coleta e alguns indicadores administrativos ainda usam dados demonstrativos do frontend.
+
 ### 1. Acessar o Sistema
 
 Ao abrir o EcoSmart, você verá a **Landing Page** com informações sobre a plataforma.
@@ -70,7 +72,7 @@ Após o login, você verá seu **Dashboard** personalizado.
    - **Data do Descarte**: Quando descartou
    - **Local**: Onde foi descartado
    - **Observações** (opcional): Detalhes adicionais
-   - **Foto** (opcional): Upload de imagem
+   - **Foto** (opcional): campo visual preparado para evolução; o envio real de arquivo ainda é item futuro
 3. Clique em **"Registrar Descarte"**
 
 ✅ Você verá uma confirmação de sucesso!
@@ -91,9 +93,10 @@ Após o login, você verá seu **Dashboard** personalizado.
 4. Clique em uma linha para ver **detalhes**
 
 ### Ações Disponíveis
-- 📥 **Exportar**: Download do histórico (PDF/CSV)
 - 👁️ **Visualizar**: Detalhes completos
-- ✏️ **Editar**: Modificar registro
+- 🔎 **Filtrar**: Refinar a lista por busca, status e período
+
+> Exportação e edição retroativa de descarte estão no roadmap.
 
 ## 📊 Acompanhando seu Impacto
 
@@ -108,6 +111,8 @@ Após o login, você verá seu **Dashboard** personalizado.
 - 📈 **Evolução de Reciclagem**: Por mês
 - 📉 **Emissões Evitadas**: Linha do tempo
 - 🌳 **Equivalentes**: Árvores, água, energia
+
+> Nesta versão, a tela de impacto usa dados demonstrativos locais. Os descartes reais já ficam salvos no backend e podem alimentar esses indicadores em uma próxima etapa.
 
 ### Sugestões
 - Dicas personalizadas para melhorar seu impacto
@@ -162,6 +167,8 @@ Clique em um ponto para ver:
 - 🗺️ **Ver Rota**: Navegar até lá
 - 🚛 **Solicitar Coleta**: Pedir coleta naquele local
 
+> Os pontos de coleta são demonstrativos nesta versão. O modelo `PontoColeta` já existe no backend, mas a tela ainda não consulta essa tabela.
+
 ## 🚛 Solicitando uma Coleta
 
 ### Novo Pedido (Wizard de 4 Etapas)
@@ -214,6 +221,8 @@ Status possíveis:
    - 🗑️ Arquivar
    - 📖 Ver detalhes
 
+> Notificações ainda usam dados mockados no frontend.
+
 ## 👤 Gerenciando seu Perfil
 
 1. Acesse **"Perfil"** na sidebar
@@ -229,7 +238,7 @@ Status possíveis:
 - 📊 Compartilhar dados para relatórios
 
 ### Segurança
-- 🔐 Alterar senha
+- 🔐 Alterar senha (roadmap)
 - 🔒 Configurações de privacidade
 
 ## 🔐 Painel Administrativo (Admin)
@@ -289,10 +298,10 @@ Status possíveis:
 - Sim, solicite ao administrador
 
 **Os dados são privados?**
-- Sim, protegidos por RLS e criptografia
+- O backend aplica autenticação por token assinado e controle de acesso por perfil. O projeto não usa Supabase Auth/RLS diretamente nesta versão.
 
 **Como exporto meu histórico?**
-- Use o botão "Exportar" na tela de Histórico
+- A exportação ainda está no roadmap. Por enquanto, o histórico é consultado na própria tela.
 
 **Posso usar no celular?**
 - Sim, o design é responsivo
@@ -300,9 +309,9 @@ Status possíveis:
 ## 🆘 Suporte
 
 **Problemas ou dúvidas?**
-- 📧 Email: suporte@ecosmart.com
-- 💬 Chat: Disponível no sistema
-- 📞 Telefone: (11) 1234-5678
+- Use a documentação técnica em `README.md` e na pasta `docs/`.
+- Valide o backend com `python manage.py check` e `python manage.py test ecosmart -v 2`.
+- Valide o frontend com `npm run build`.
 
 ---
 

@@ -1,298 +1,196 @@
-# EcoSmart - Plataforma de Gestão Sustentável de Resíduos Sólidos
+# EcoSmart - Gestao Sustentavel de Residuos
 
-Sistema web completo para registro, acompanhamento e gestão de descartes de resíduos sólidos, com foco em sustentabilidade e educação ambiental.
+EcoSmart e uma plataforma web para registro, acompanhamento e gestao de descartes de residuos solidos. O projeto conecta usuarios comuns, coletores premium, empresas/cooperativas e administradores em um fluxo unico de descarte, coleta, educacao ambiental e acompanhamento operacional.
 
-## 🌿 Visão Geral
+## Status do Projeto
 
-EcoSmart é uma plataforma digital colaborativa que conecta cidadãos, empresas, cooperativas e administradores em torno da gestão responsável de resíduos. O sistema oferece:
+O MVP esta funcional com frontend React e API Django integrada. A aplicacao possui autenticação propria, controle de acesso por perfil, persistencia em SQLite local ou PostgreSQL/Supabase, fluxo real de pedidos de coleta e testes automatizados do backend.
 
-- ✅ Registro digital de descartes
-- 📊 Indicadores de impacto ambiental
-- 📚 Conteúdo educativo sobre reciclagem
-- 🗺️ Mapeamento de pontos de coleta
-- 🚛 Solicitação de coletas
-- 👥 Gestão colaborativa institucional
-- 🎯 Gamificação e recompensas
+Recursos integrados ao backend:
 
-## 👥 Perfis de Usuário
+- Login, cadastro e sessao com token assinado pelo Django.
+- Controle de acesso por perfis `UC`, `UP`, `UE` e `UA`.
+- Registro e historico de descartes.
+- Pedido de coleta gerando descarte disponivel para coletores.
+- Coleta por usuario Premium, com avanço de status.
+- Vinculo de coletas a instituicoes quando o coletor esta vinculado.
+- Painel empresarial com descartes vinculados a instituicao.
+- Workspace empresarial para vincular e inativar usuarios.
+- Gestao administrativa de usuarios e conteudos educativos.
+- Edicao de perfil do proprio usuario.
 
-### UC - Usuário Comum
-- Registra descartes pessoais
-- Consulta histórico
-- Visualiza impacto ambiental básico
-- Acessa conteúdo educativo
+Recursos demonstrativos ou parcialmente mockados:
 
-### UP - Usuário Premium
-- Todas funcionalidades do UC
-- Histórico detalhado
-- Relatórios avançados
-- Recompensas e benefícios expandidos
+- Impacto ambiental, notificacoes, pontos de coleta e alguns indicadores administrativos ainda usam `src/lib/mockData.ts`.
+- Upload de imagem aparece na interface, mas ainda nao envia arquivo para a API.
+- Exportacao de relatorios, recompensas, automacoes Make e integracoes externas estao como roadmap/documentacao.
 
-### UE - Usuário Empresarial
-- Painel institucional
-- Dados consolidados da organização
-- Gestão de usuários vinculados
-- Relatórios corporativos
+## Stack
 
-### UA - Usuário Administrador
-- Painel administrativo completo
-- Gestão de usuários e permissões
-- Gestão de conteúdos educativos
-- Monitoramento do sistema
+| Camada | Tecnologias |
+| --- | --- |
+| Frontend | React 18, TypeScript, Vite, React Router 7, Tailwind CSS v4 |
+| UI e graficos | Radix UI, lucide-react, Recharts, sonner |
+| Backend | Django, django-cors-headers |
+| Banco | SQLite local, PostgreSQL local via Docker ou Supabase PostgreSQL |
+| Qualidade | `django.test.TestCase`, `manage.py check`, build Vite |
 
-## 🏗️ Arquitetura
+## Perfis
 
-### Frontend
-- **React 18** com TypeScript
-- **React Router 7** para navegação
-- **Tailwind CSS v4** para estilização
-- **Recharts** para visualização de dados
-- **Radix UI** para componentes acessíveis
+| Perfil | Nome | Principais permissoes |
+| --- | --- | --- |
+| `UC` | Usuario Comum | Registrar descartes, criar pedidos de coleta, consultar proprio historico e editar perfil |
+| `UP` | Usuario Premium | Ver descartes disponiveis, coletar descartes de UC e atualizar status das proprias coletas |
+| `UE` | Usuario Empresarial | Consultar dados da instituicao e gerenciar vinculos no workspace |
+| `UA` | Usuario Administrador | Gerenciar usuarios, conteudos, metricas administrativas e rotas de supervisao |
 
-### Backend
-- **Django** como API da aplicação
-- **SQLite** para desenvolvimento rápido local
-- **PostgreSQL** local ou **Supabase PostgreSQL** para banco em nuvem
-- Autenticação e controle de acesso implementados na API Django
+## Estrutura do Repositorio
 
-### Automação
-- **Make** para notificações e integrações
-- Alertas automáticos
-- Sincronização de dados
-
-## 📁 Estrutura do Projeto
-
-```
-src/
-├── app/
-│   ├── components/          # Componentes compartilhados
-│   │   ├── Card.tsx
-│   │   ├── Modal.tsx
-│   │   ├── Sidebar.tsx
-│   │   ├── Table.tsx
-│   │   └── TopBar.tsx
-│   ├── layouts/            # Layouts da aplicação
-│   │   ├── DashboardLayout.tsx
-│   │   └── RootLayout.tsx
-│   ├── pages/              # Páginas principais
-│   │   ├── dashboard/      # Dashboards por perfil
-│   │   ├── admin/          # Páginas administrativas
-│   │   ├── LandingPage.tsx
-│   │   ├── LoginPage.tsx
-│   │   └── ...
-│   ├── routes.tsx          # Configuração de rotas
-│   └── App.tsx             # Componente raiz
-├── contexts/               # Contextos React
-│   └── AuthContext.tsx
-├── lib/                    # Utilitários e mock data
-│   └── mockData.ts
-└── styles/
-    ├── theme.css           # Variáveis CSS
-    └── fonts.css
+```text
+.
+├── ecosmart/                 # App Django: modelos, views, auth, testes e seed
+├── src/                      # Frontend React/TypeScript
+│   ├── app/                  # Rotas, layouts, paginas e componentes
+│   ├── contexts/             # AuthContext e estado de sessao
+│   ├── lib/                  # apiFetch e dados mockados
+│   └── styles/               # CSS global, Tailwind e tema
+├── docs/                     # Documentacao tecnica e guias de execucao
+├── supabase/                 # Configuracao auxiliar do Supabase
+├── manage.py                 # CLI Django
+├── settings.py               # Configuracao Django/env/banco/CORS
+├── urls.py                   # Rotas da API
+├── package.json              # Dependencias e scripts do frontend
+├── requirements.txt          # Dependencias Python
+└── docker-compose.yml        # PostgreSQL local opcional
 ```
 
-## 🎨 Design System
+## Documentacao
 
-### Cores Principais
-- **Verde Escuro (Primary)**: `#1a4d2e` - Identidade principal
-- **Verde Médio (Secondary)**: `#4caf50` - Destaques e ações
-- **Verde Claro (Accent)**: `#81c784` - Elementos secundários
-- **Branco/Cinza**: Áreas de conteúdo
+- [Guia de uso](GUIA_DE_USO.md)
+- [Arquitetura](docs/arquitetura.md)
+- [API Django](docs/api.md)
+- [Modelo de dados](docs/modelo-dados.md)
+- [Controle de acesso](docs/controle-acesso.md)
+- [Qualidade e testes do backend](docs/qualidade-backend.md)
+- [Execucao no Windows](docs/execucao-windows.md)
+- [Execucao no Linux](docs/execucao-linux.md)
+- [Integracao com Supabase](SUPABASE_INTEGRATION.md)
 
-### Princípios de Design
-- Interface limpa e sustentável
-- Formas orgânicas e arredondadas
-- Alta legibilidade e contraste
-- Acessibilidade (WCAG 2.1)
-- Responsivo desktop-first (1440px base)
+## Configuracao Local
 
-## 📱 Páginas Implementadas
+### 1. Instalar dependencias Python
 
-### Públicas
-- ✅ Landing Page institucional
-- ✅ Login
-- ✅ Cadastro
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
 
-### Usuário
-- ✅ Dashboard (UC, UP, UE, UA)
-- ✅ Registrar Descarte
-- ✅ Histórico de Descartes
-- ✅ Impacto Ambiental
-- ✅ Central Educativa
-- ✅ Conteúdo Educativo (Detalhes)
-- ✅ Pontos de Coleta (com mapa)
-- ✅ Pedidos de Coleta
-- ✅ Novo Pedido de Coleta (wizard)
-- ✅ Notificações
-- ✅ Perfil e Configurações
+### 2. Instalar dependencias do frontend
 
-### Administrativas
-- ✅ Gestão de Usuários
-- ✅ Gestão de Permissões
-- ✅ Gestão de Conteúdos
-- ✅ Arquitetura do Sistema
+```powershell
+npm install
+```
 
-## 🔐 Credenciais de Teste
+### 3. Configurar ambiente
 
-### Administrador
-- Email: `admin@ecosmart.com`
-- Senha: `admin123`
+Copie `.env.example` para `.env` e mantenha SQLite para desenvolvimento local:
 
-### Usuário Comum
-- Email: `maria@email.com`
-- Senha: `maria123`
+```env
+DATABASE_ENGINE=sqlite
+SQLITE_DB_PATH=db.sqlite3
+DJANGO_DEBUG=true
+DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
+DJANGO_CORS_ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
+VITE_API_URL=http://localhost:8000/api
+```
 
-### Usuário Premium
-- Email: `ana@email.com`
-- Senha: `ana123`
-- Email: `joao@email.com`
-- Senha: `joao123`
+### 4. Preparar banco e dados de teste
 
-### Usuário Empresarial
-- Email: `carlos@empresa.com`
-- Senha: `carlos123`
+```powershell
+python manage.py migrate
+python manage.py seed_db
+```
 
-## 🚀 Funcionalidades
+### 5. Rodar backend
 
-### MVP (Integrado ao Backend Django)
-- ✅ Sistema de autenticação
-- ✅ Controle de acesso por perfil
-- ✅ Registro de descartes
-- ✅ Coleta de descartes de UC por usuários Premium
-- ✅ Pedido de coleta gerando oportunidade real para UP
-- ✅ Status sincronizado entre pedido, histórico do UC e coletas do UP
-- ✅ Workspace empresarial com vínculos reais de usuários
-- ✅ Rastreamento de coletor e instituição vinculada
-- ✅ Histórico com filtros
-- ✅ Métricas de impacto
-- ✅ Conteúdo educativo
-- ✅ Mapa de pontos de coleta
-- ✅ Sistema de notificações
-- ✅ Painel administrativo
+```powershell
+python manage.py runserver 127.0.0.1:8000
+```
 
-### Próximos Passos
-- 🔄 Substituir mocks restantes de impacto, notificações e pontos de coleta
-- 🔄 Upload de imagens
-- 🔄 Exportação de relatórios
-- 🔄 Endurecimento de segurança para produção
+### 6. Rodar frontend
 
-## ⚙️ Configuração Local
+Em outro terminal:
 
-1. Copie `.env.example` para `.env` e ajuste as variáveis do banco.
-2. Ative o ambiente virtual antes dos comandos Python:
-   - `source .venv/bin/activate`
-3. Para desenvolvimento local sem Docker/Postgres, mantenha:
-   - `DATABASE_ENGINE=sqlite`
-   - `SQLITE_DB_PATH=db.sqlite3`
-4. Para usar o PostgreSQL local do `docker-compose.yml`, altere para `DATABASE_ENGINE=postgres` e mantenha:
-   - `POSTGRES_DB=ecosmart_db`
-   - `POSTGRES_USER=admin`
-   - `POSTGRES_PASSWORD=1234`
-   - `POSTGRES_HOST=localhost`
-5. Para usar o Supabase como banco em nuvem, configure `DATABASE_URL` com a connection string do projeto e `sslmode=require`. Veja [`SUPABASE_INTEGRATION.md`](SUPABASE_INTEGRATION.md).
-6. Rode `python manage.py migrate` e depois `python manage.py seed_db` para criar as credenciais de teste.
-7. Inicie o backend com `python manage.py runserver`.
-8. Inicie o frontend com `npm run dev`.
+```powershell
+npm run dev
+```
 
-O frontend usa `VITE_API_URL` para encontrar a API Django. Login e cadastro recebem um token assinado pelo Django, salvo no navegador, e as chamadas internas enviam esse token no header `Authorization`.
+Acesse:
 
-## ✅ Qualidade e Testes do Backend
+```text
+http://localhost:5173
+```
 
-A estratégia de validação do backend, os 31 casos testados, o relatório de execução, a evidência de cobertura mínima funcional e o código dos testes implementados estão documentados em:
+## Credenciais de Teste
 
-- [`docs/qualidade-backend.md`](docs/qualidade-backend.md)
-- [`docs/controle-acesso.md`](docs/controle-acesso.md)
+| Perfil | E-mail | Senha |
+| --- | --- | --- |
+| Administrador | `admin@ecosmart.com` | `admin123` |
+| Usuario Comum | `maria@email.com` | `maria123` |
+| Usuario Comum extra | `pedro@email.com` | `pedro123` |
+| Premium vinculado | `ana@email.com` | `ana123` |
+| Premium sem vinculo | `joao@email.com` | `joao123` |
+| Empresarial | `carlos@empresa.com` | `carlos123` |
 
-Comandos principais:
+## Fluxo Principal
 
-```bash
+1. O `UC` cria um pedido de coleta ou registra um descarte.
+2. A API cria um `Descarte` com status `registrado`.
+3. O `UP` visualiza descartes disponiveis e assume a coleta.
+4. O status avanca de `coletado` para `em_transito` e depois `processado`.
+5. Se o `UP` estiver vinculado a uma instituicao, o descarte aparece no painel `UE`.
+6. O `UC` acompanha o historico e o status relacionado ao pedido.
+
+## Comandos de Qualidade
+
+Backend:
+
+```powershell
 python manage.py check
-python manage.py test ecosmart.tests.BackendQualityTests -v 2
+python manage.py test ecosmart -v 2
 ```
 
-## 🔄 Fluxo de Coleta
+Frontend:
 
-1. Um usuário comum (`UC`) registra um descarte.
-2. O descarte aparece no dashboard de usuários Premium (`UP`) em **Descartes Disponíveis para Coleta**.
-3. Ao clicar em **Coletar**, o sistema registra o UP como coletor.
-4. O UP acompanha em **Minhas Coletas** e avança o status para **Em trânsito** e depois **Finalizado**.
-5. Se o UP estiver vinculado a uma instituição, a coleta é vinculada automaticamente a essa instituição.
-6. O perfil empresarial (`UE`) vinculado à mesma instituição vê a coleta no painel consolidado, incluindo quem gerou o descarte e quem coletou.
-7. Se o UP não tiver vínculo institucional, a coleta finalizada aparece para o UC solicitante e para o UP coletor, sem entrar no painel empresarial.
+```powershell
+npm run build
+```
 
-As telas de histórico, dashboard Premium, dashboard Empresarial e pedidos de coleta consultam a API automaticamente em intervalos curtos para refletir movimentações recentes sem recarregar a página.
+Na validacao desta revisao, o backend executou 48 testes com sucesso e o build Vite foi usado para verificar a compilacao do frontend.
 
-## 🚛 Solicitação de Coleta
+## Banco de Dados
 
-1. O usuário comum (`UC`) cria uma solicitação em **Pedidos de Coleta > Novo Pedido**.
-2. O pedido é salvo no backend real em `/api/pedidos-coleta/` e gera automaticamente um descarte com status **Registrado**.
-3. O descarte aparece para usuários Premium (`UP`) em **Descartes Disponíveis para Coleta**.
-4. Quando o UP coleta, o pedido do UC muda para **Agendada**.
-5. Quando o UP marca como entregue, o pedido do UC muda para **Finalizada**.
+O projeto pode rodar em tres modos:
 
-### Futuro (Roadmap)
-- 📍 Geolocalização em tempo real
-- 🤖 IA para reconhecimento de materiais
-- 📱 App mobile nativo
-- 🏆 Gamificação expandida
-- 💳 Sistema de recompensas
-- 🔗 Integração com órgãos públicos
-- 📊 Analytics avançado
+| Modo | Quando usar | Configuracao |
+| --- | --- | --- |
+| SQLite | Desenvolvimento local simples | `DATABASE_ENGINE=sqlite` |
+| PostgreSQL local | Teste mais proximo de producao | `DATABASE_ENGINE=postgres` com `docker-compose.yml` |
+| Supabase PostgreSQL | Banco em nuvem mantendo Django como API | `DATABASE_URL=postgresql://...?...sslmode=require` |
 
-## 🗄️ Estrutura de Dados Atual
+Detalhes da migracao para Supabase estao em [SUPABASE_INTEGRATION.md](SUPABASE_INTEGRATION.md).
 
-### Tabelas Principais
-- **usuarios**: id, nome, email, perfil, status
-- **descartes**: id, usuario_id, tipo_residuo, quantidade, data
-- **instituicoes**: id, nome, tipo, cnpj, contato
-- **usuarios_instituicoes**: usuario_id, instituicao_id, vinculo_ativo
-- **notificacoes**: id, usuario_id, titulo, mensagem, lida
-- **pedidos_coleta**: id, usuario_id, status, materiais
-- **pontos_coleta**: id, nome, tipo, endereco, latitude, longitude
-- **materiais**: id, nome, categoria, como_descartar
-- **impactos**: usuario_id, pontos, reciclado_kg, emissao_evitada
+## Roadmap
 
-## 🔌 Integração Supabase
+- Persistir notificacoes, pontos de coleta e metricas de impacto no backend.
+- Implementar upload real de imagens para descartes.
+- Adicionar exportacao de relatorios.
+- Criar fluxo de recuperacao/alteracao de senha.
+- Preparar configuracao de deploy com variaveis seguras e `DJANGO_DEBUG=false`.
+- Expandir gamificacao e recompensas.
 
-Para conectar ao Supabase real:
+## Licenca
 
-1. Acesse as configurações do Make
-2. Conecte seu projeto Supabase
-3. Configure as variáveis de ambiente
-4. Ajuste as chamadas do frontend que ainda usam dados mockados para consumir a API escolhida
-
-## 🎯 Diferenciais
-
-- **Educação Ambiental**: Conteúdo rico sobre descarte correto
-- **Impacto Mensurável**: Métricas claras de impacto positivo
-- **Colaborativo**: Conecta múltiplos atores do ecossistema
-- **Acessível**: Interface simples e intuitiva
-- **Escalável**: Arquitetura preparada para crescimento
-- **Sustentável**: Design e valores alinhados com o propósito
-
-## 📊 Dados Mock
-
-O sistema inclui:
-- 5 usuários (1 admin, 2 comuns, 1 premium, 1 empresarial)
-- 10 registros de descarte
-- 4 pedidos de coleta
-- 6 notificações
-- 8 pontos de coleta
-- 8 materiais educativos
-
-## 🌍 Impacto Socioambiental
-
-O EcoSmart contribui para:
-- Redução de emissões de CO₂
-- Economia de recursos naturais
-- Geração de renda para cooperativas
-- Educação ambiental contínua
-- Dados para políticas públicas
-
-## 📄 Licença
-
-Sistema desenvolvido como protótipo de alta fidelidade para gestão sustentável de resíduos sólidos.
-
----
-
-**EcoSmart** - Transformando o futuro através da gestão inteligente de resíduos 🌿♻️
+Projeto academico/prototipo funcional de alta fidelidade para gestao sustentavel de residuos solidos.

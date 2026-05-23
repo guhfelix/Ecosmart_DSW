@@ -1,4 +1,4 @@
-import { Database, Server, Zap, GitBranch, Cloud, Code, Workflow } from 'lucide-react';
+import { Database, Server, GitBranch, Code, Workflow, ShieldCheck } from 'lucide-react';
 
 export function ArquiteturaSystem() {
   return (
@@ -13,8 +13,8 @@ export function ArquiteturaSystem() {
       <div className="rounded-xl border bg-gradient-to-br from-[#4caf50]/10 to-[#81c784]/10 p-8">
         <h2 className="text-2xl font-bold text-[#1a4d2e]">Visão Geral</h2>
         <p className="mt-2 text-muted-foreground">
-          O EcoSmart é uma plataforma web construída com arquitetura moderna e escalável,
-          utilizando tecnologias de ponta para garantir performance, segurança e facilidade de manutenção.
+          O EcoSmart combina frontend React, API Django e banco relacional para registrar descartes,
+          controlar coletas, gerenciar perfis e consolidar dados empresariais.
         </p>
       </div>
 
@@ -45,11 +45,11 @@ export function ArquiteturaSystem() {
             <h3 className="text-xl font-semibold">API / Backend</h3>
           </div>
           <div className="mt-4 space-y-2 text-sm">
-            <p>• Supabase como backend</p>
-            <p>• PostgreSQL para banco de dados</p>
-            <p>• Edge Functions para lógica de negócio</p>
-            <p>• Row Level Security (RLS)</p>
-            <p>• APIs RESTful</p>
+            <p>• Django como API da aplicação</p>
+            <p>• Views JSON para regras de negócio</p>
+            <p>• Middleware próprio de autenticação</p>
+            <p>• Controle de acesso por perfil</p>
+            <p>• Testes automatizados do backend</p>
           </div>
         </div>
 
@@ -62,11 +62,11 @@ export function ArquiteturaSystem() {
             <h3 className="text-xl font-semibold">Banco de Dados</h3>
           </div>
           <div className="mt-4 space-y-2 text-sm">
-            <p>• PostgreSQL via Supabase</p>
+            <p>• SQLite para desenvolvimento local</p>
+            <p>• PostgreSQL local via Docker</p>
+            <p>• Supabase PostgreSQL opcional</p>
             <p>• Estrutura relacional normalizada</p>
-            <p>• Tabelas: usuarios, descartes, entidades</p>
-            <p>• notificacoes, pedidos_coleta, pontos_coleta</p>
-            <p>• Índices otimizados para queries</p>
+            <p>• Tabelas de usuários, descartes, pedidos e instituições</p>
           </div>
         </div>
 
@@ -76,14 +76,13 @@ export function ArquiteturaSystem() {
             <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#4caf50]">
               <Workflow className="h-6 w-6 text-white" />
             </div>
-            <h3 className="text-xl font-semibold">Automação - Make</h3>
+            <h3 className="text-xl font-semibold">Integrações</h3>
           </div>
           <div className="mt-4 space-y-2 text-sm">
-            <p>• Notificações automáticas</p>
-            <p>• Confirmações de coleta</p>
-            <p>• Alertas e lembretes</p>
-            <p>• Integrações com serviços externos</p>
-            <p>• Sincronização de dados</p>
+            <p>• Frontend consome a API por VITE_API_URL</p>
+            <p>• Supabase pode ser usado como PostgreSQL remoto</p>
+            <p>• Make e automações externas estão no roadmap</p>
+            <p>• Uploads e notificações reais estão planejados</p>
           </div>
         </div>
       </div>
@@ -94,14 +93,13 @@ export function ArquiteturaSystem() {
 
         <div className="rounded-xl border-l-4 border-yellow-500 bg-yellow-50 p-6">
           <div className="flex items-start gap-3">
-            <Zap className="h-6 w-6 text-yellow-600" />
+            <ShieldCheck className="h-6 w-6 text-yellow-600" />
             <div>
-              <h4 className="font-semibold text-yellow-900">Fase 1: MVP com Mock de Dados</h4>
+              <h4 className="font-semibold text-yellow-900">Fase 1: MVP Funcional</h4>
               <p className="mt-2 text-sm text-yellow-800">
                 <strong>Status:</strong> Atual<br />
-                Desenvolvimento do protótipo funcional utilizando dados fictícios (mock) para testar
-                e validar a interface, fluxos de navegação e experiência do usuário. Esta fase
-                permite iterar rapidamente no design e funcionalidades sem dependência de backend.
+                Autenticação, controle de acesso, usuários, conteúdos, descartes, pedidos,
+                coletas e workspace empresarial já estão integrados ao backend Django.
               </p>
             </div>
           </div>
@@ -111,12 +109,11 @@ export function ArquiteturaSystem() {
           <div className="flex items-start gap-3">
             <Database className="h-6 w-6 text-blue-600" />
             <div>
-              <h4 className="font-semibold text-blue-900">Fase 2: Integração com Supabase</h4>
+              <h4 className="font-semibold text-blue-900">Fase 2: Persistência Completa</h4>
               <p className="mt-2 text-sm text-blue-800">
                 <strong>Status:</strong> Próximo Passo<br />
-                Conexão do frontend com Supabase real. Migração dos mocks para chamadas de API
-                verdadeiras, configuração de autenticação, implementação de políticas de segurança
-                (RLS) e deploy do banco de dados PostgreSQL com todas as tabelas necessárias.
+                Migrar impacto ambiental, notificações, pontos de coleta, uploads e relatórios
+                para endpoints persistidos na API, mantendo as regras de acesso por perfil.
               </p>
             </div>
           </div>
@@ -124,14 +121,13 @@ export function ArquiteturaSystem() {
 
         <div className="rounded-xl border-l-4 border-green-500 bg-green-50 p-6">
           <div className="flex items-start gap-3">
-            <Cloud className="h-6 w-6 text-green-600" />
+            <Database className="h-6 w-6 text-green-600" />
             <div>
               <h4 className="font-semibold text-green-900">Fase 3: Produção e Expansão</h4>
               <p className="mt-2 text-sm text-green-800">
                 <strong>Status:</strong> Futuro<br />
-                Deploy em produção, configuração de domínio customizado, implementação de recursos
-                avançados (gamificação expandida, IA, integração com órgãos públicos), monitoramento,
-                analytics e otimizações de performance.
+                Deploy com variáveis seguras, HTTPS, banco gerenciado, monitoramento, analytics,
+                gamificação expandida, IA e integrações com órgãos públicos ou cooperativas.
               </p>
             </div>
           </div>
@@ -146,10 +142,10 @@ export function ArquiteturaSystem() {
             { name: 'React', desc: 'UI Library' },
             { name: 'TypeScript', desc: 'Type Safety' },
             { name: 'Tailwind CSS', desc: 'Styling' },
-            { name: 'Supabase', desc: 'Backend & DB' },
+            { name: 'Django', desc: 'API Backend' },
             { name: 'React Router', desc: 'Navigation' },
             { name: 'Recharts', desc: 'Charts' },
-            { name: 'Make', desc: 'Automation' },
+            { name: 'SQLite', desc: 'Local DB' },
             { name: 'PostgreSQL', desc: 'Database' },
             { name: 'Vite', desc: 'Build Tool' }
           ].map((tech, index) => (
@@ -166,23 +162,23 @@ export function ArquiteturaSystem() {
 
       {/* Connection Info */}
       <div className="rounded-xl border bg-gradient-to-r from-[#4caf50]/10 to-[#81c784]/10 p-6">
-        <h3 className="font-semibold text-[#1a4d2e]">📋 Como Conectar ao Supabase</h3>
+        <h3 className="font-semibold text-[#1a4d2e]">📋 Documentação Técnica</h3>
         <div className="mt-4 space-y-2 text-sm">
           <p>
-            <strong>1.</strong> Acesse a página de configurações do Make
+            <strong>1.</strong> Use o README como porta de entrada do projeto
           </p>
           <p>
-            <strong>2.</strong> Conecte seu projeto Supabase fornecendo as credenciais
+            <strong>2.</strong> Consulte docs/arquitetura.md para a visão completa
           </p>
           <p>
-            <strong>3.</strong> O sistema irá migrar automaticamente do mock para a conexão real
+            <strong>3.</strong> Consulte docs/api.md para endpoints e payloads
           </p>
           <p>
-            <strong>4.</strong> Configure as variáveis de ambiente e secrets necessários
+            <strong>4.</strong> Consulte SUPABASE_INTEGRATION.md para usar Supabase como banco PostgreSQL
           </p>
           <p className="mt-4 italic text-muted-foreground">
-            Nota: O sistema atual funciona com dados mock para demonstração e prototipagem.
-            A conexão com Supabase permite persistência real de dados.
+            Nota: alguns módulos visuais ainda usam mock local, mas os fluxos principais já passam
+            pela API Django e pelo banco configurado no ambiente.
           </p>
         </div>
       </div>

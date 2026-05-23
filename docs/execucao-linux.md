@@ -170,14 +170,14 @@ Com o ambiente virtual ativo:
 
 ```bash
 python manage.py check
-python manage.py test ecosmart.tests.BackendQualityTests -v 2
+python manage.py test ecosmart -v 2
 ```
 
 Resultado esperado:
 
 ```text
 System check identified no issues
-31 tests
+48 tests
 OK
 ```
 

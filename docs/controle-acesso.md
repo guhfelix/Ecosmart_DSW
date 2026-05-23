@@ -164,7 +164,7 @@ Restrições:
 | `/api/signup/` | Público | Público | Público | Público |
 | `/api/descartes/` | Sim | Sim | Sim | Sim |
 | `/api/descartes/historico/` | Próprio | Próprio | Não | Todos |
-| `/api/pedidos-coleta/` | Sim | Sim | UE lista vinculados | Sim |
+| `/api/pedidos-coleta/` | Sim | Sim | UE lista vinculados | Lista todos; não cria |
 | `/api/descartes/disponiveis/` | Não | Sim | Não | Sim |
 | `/api/descartes/<id>/coletar/` | Não | Sim | Não | Sim |
 | `/api/descartes/<id>/status/` | Não | Coleta própria | Não | Sim |
@@ -203,6 +203,17 @@ python manage.py test ecosmart.tests.BackendQualityTests -v 2
 Found 31 test(s).
 System check identified no issues (0 silenced).
 Ran 31 tests in 0.381s
+OK
+```
+
+Execução completa da suíte atual:
+
+```text
+python manage.py test ecosmart -v 2
+
+Found 48 test(s).
+System check identified no issues (0 silenced).
+Ran 48 tests in 0.780s
 OK
 ```
 

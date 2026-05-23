@@ -6,7 +6,7 @@ Este documento registra a estratégia de testes do backend Django do EcoSmart, o
 
 A estratégia atual prioriza testes automatizados de integração usando `django.test.TestCase` e o client HTTP do Django. O objetivo é validar os fluxos críticos do backend sem depender do banco SQLite local ou dos dados de seed.
 
-Escopo coberto:
+Escopo coberto pela suíte principal e pelas suítes complementares:
 
 - Autenticação e emissão de token.
 - Middleware de autenticação e autorização por perfil.
@@ -23,6 +23,13 @@ Escopo coberto:
 - Conteúdo educativo protegido por permissão administrativa.
 - Atualização de perfil respeitando dono do cadastro ou administrador.
 - Métricas administrativas acessíveis somente para `UA`.
+- Validação de entradas inválidas.
+- Integridade de banco de dados.
+- Segurança contra token ausente ou inválido.
+- Regressões de permissão.
+- Tratamento de erro.
+- Integridade de workflow.
+- Estresse básico com múltiplos descartes e logins.
 
 Os testes criam seus próprios usuários, instituição, vínculos e resíduos em banco de teste isolado em memória. Isso evita interferência dos registros locais usados durante a demonstração.
 
@@ -34,6 +41,12 @@ Com o ambiente Python configurado:
 
 ```powershell
 python manage.py check
+python manage.py test ecosmart -v 2
+```
+
+Para executar somente a suíte principal do MVP:
+
+```powershell
 python manage.py test ecosmart.tests.BackendQualityTests -v 2
 ```
 
@@ -50,6 +63,24 @@ Observação: neste projeto, o comando explícito acima é o mais confiável por
 | Testes de permissão | Acesso correto por perfil | UC sem acesso a rotas de UP/UA, conteúdo educativo só para admin |
 | Testes de regra de negócio | Comportamento específico do domínio | UP não coleta o próprio descarte, UE só vê coleta com vínculo |
 | Testes de integração | Fluxos passando por API, banco e serializers | UC cria pedido, UP coleta, UE visualiza |
+| Testes de validação | Dados incorretos e limites de entrada | Email inválido, quantidade negativa, texto grande |
+| Testes de integridade | Restrições do banco | Email único, chaves estrangeiras, campos obrigatórios |
+| Testes de segurança | Bloqueio de acessos indevidos | Token inválido e acesso sem token |
+| Testes de estresse | Repetição de fluxos críticos | 100 descartes e 50 logins consecutivos |
+
+### Suítes Automatizadas
+
+| Classe | Quantidade | Finalidade |
+| --- | ---: | --- |
+| `BackendQualityTests` | 31 | Fluxos principais do MVP, permissões e integração |
+| `ValidationTests` | 4 | Validação de entradas |
+| `DatabaseIntegrityTests` | 3 | Constraints e integridade do banco |
+| `RegressionTests` | 2 | Regressões administrativas |
+| `SecurityTests` | 2 | Acesso sem token e token inválido |
+| `StressTests` | 2 | Volume básico de operações |
+| `ErrorHandlingTests` | 2 | Rotas e métodos inválidos |
+| `WorkflowIntegrityTests` | 2 | Ordem de estados e transições |
+| **Total** | **48** | Cobertura funcional do backend |
 
 ### Lista Completa
 
@@ -88,6 +119,19 @@ Observação: neste projeto, o comando explícito acima é o mais confiável por
 | T31 | Middleware | `test_middleware_bloqueia_token_ausente_antes_da_view` | Rota protegida sem token é bloqueada com HTTP 401 antes da view |
 
 ## Relatório de Execução
+
+Execução completa validada nesta revisão:
+
+```text
+python manage.py check
+System check identified no issues (0 silenced).
+
+python manage.py test ecosmart -v 2
+Found 48 test(s).
+System check identified no issues (0 silenced).
+Ran 48 tests in 0.780s
+OK
+```
 
 Execução realizada em 16/05/2026:
 
@@ -164,7 +208,7 @@ Resultado: 12 de 12 áreas críticas do backend MVP possuem cobertura funcional 
 Para uma etapa futura, recomenda-se adicionar `coverage.py` ao ambiente e medir cobertura por linha com:
 
 ```powershell
-python -m coverage run manage.py test ecosmart.tests.BackendQualityTests
+python -m coverage run manage.py test ecosmart
 python -m coverage report -m
 ```
 
@@ -178,4 +222,4 @@ Classe principal:
 
 - `BackendQualityTests`
 
-Essa classe contém os 31 testes automatizados listados acima e usa `TestCase`, banco isolado, client HTTP do Django e dados criados no próprio `setUp`.
+Essa classe contém os 31 testes automatizados do MVP listados acima e usa `TestCase`, banco isolado, client HTTP do Django e dados criados no próprio `setUp`. O arquivo tambem contem as suites complementares de validacao, integridade, regressao, seguranca, estresse, tratamento de erro e workflow, totalizando 48 testes.
