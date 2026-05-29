@@ -72,6 +72,8 @@ Recursos demonstrativos ou parcialmente mockados:
 - [Modelo de dados](docs/modelo-dados.md)
 - [Controle de acesso](docs/controle-acesso.md)
 - [Qualidade e testes do backend](docs/qualidade-backend.md)
+- [Relatório de execução de testes](docs/relatorio-execucao-testes.md)
+- [Matriz de casos de teste](docs/matriz-casos-teste.md)
 - [Execucao no Windows](docs/execucao-windows.md)
 - [Execucao no Linux](docs/execucao-linux.md)
 - [Integracao com Supabase](SUPABASE_INTEGRATION.md)
