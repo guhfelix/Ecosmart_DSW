@@ -306,26 +306,6 @@ Status possíveis:
 **Posso usar no celular?**
 - Sim, o design é responsivo
 
-## 🚀 Execução do Front/Backend
--  **Não Esquecer:** 
-   - Ativar venv (Windows): `.\venv\Scripts\Activate.ps1`
-   - Ativar venv (Linux): `source .venv/bin/activate`
-
-   - Instalar Dependências: `pip install -r requirements.txt`
-
-**Em seguida, executar:**
--  **Frontend:** `npm run dev`
-
--  **Backend:** `python manage.py runserver`
-
-## 🚀 Links do Projeto em Produção
-
--  **Frontend (Vercel):** https://ecosmart-dsw.vercel.app/
-
--  **Backend API (Render):** https://ecosmart-dsw.onrender.com
-
--  **Banco de Dados:** Supabase (Nuvem)
-
 ## 🆘 Suporte
 
 **Problemas ou dúvidas?**

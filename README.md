@@ -136,6 +136,15 @@ Acesse:
 http://localhost:5173
 ```
 
+
+## 🚀 Links do Projeto em Produção
+
+-  **Frontend (Vercel):** https://ecosmart-dsw.vercel.app/
+
+-  **Backend API (Render):** https://ecosmart-dsw.onrender.com
+
+-  **Banco de Dados:** Supabase (Nuvem)
+
 ## Credenciais de Teste
 
 | Perfil | E-mail | Senha |
